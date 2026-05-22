@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard (Jan 2026) - ICAI</title>
+    <style>
+        :root { --gradient-blue: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; }
+        
+        /* Consistent Header */
+        .header-container {
+            background: var(--gradient-blue);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 15px; }
+
+        .logo-circle-small {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+        .logo-circle-small img { width: 200%; height: 200%; object-fit: contain; }
+
+        .header-title { font-size: 20px; font-weight: bold; }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            border: 1px solid white;
+            transition: 0.3s;
+        }
+        .logout-btn:hover { background: white; color: #1e3a8a; }
+
+        /* Main Content */
+        .main-content { max-width: 900px; margin: 40px auto; padding: 20px; }
+        
+        .welcome-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        /* Requirements & Passing Stage Box styling */
+        .criteria-box {
+            background: #f0fdf4;
+            border-left: 5px solid #16a34a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+        .criteria-box h4 {
+            margin: 0 0 10px 0;
+            color: #166534;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .criteria-box p {
+            margin: 0;
+            color: #14532d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .result-table th { background: #1e293b; color: white; padding: 15px; text-align: left; }
+        .result-table td { padding: 15px; border-bottom: 1px solid #edf2f7; }
+        .result-table tr:hover { background-color: #f8fafc; }
+
+        /* Status Colors */
+        .status-pass { color: #16a34a; font-weight: bold; }
+        .status-fail { color: #dc2626; font-weight: bold; }
+
+        /* Total Row Styling */
+        .total-row { background: #f1f5f9; font-weight: bold; }
+        .total-row td { border-top: 2px solid #1e293b; }
+
+        @media (max-width: 600px) {
+            .header-container { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="header-left">
+            <div class="logo-circle-small">
+                <img src="icai-logo.png" alt="ICAI Logo">
+            </div>
+            <div class="header-title">Indian Chartered Accountants institute Student Portal</div>
+        </div>
+        <a href="index.html" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="welcome-card">
+            <h2>Welcome back, Simarjeet Singh</h2>
+            <p><strong>Roll Number:</strong> 512944</p>
+            <p>Your examination results for the <strong>Foundation Exam (January 2026 Attempt)</strong> have been declared below.</p>
+        </div>
+
+        <div class="criteria-box">
+            <h4>Examination Result: PASS</h4>
+<div class="criteria-box">
+            <h4>Requirements to Proceed to the Next Stage</h4>
+            <p>To pass the ICAI Foundation exam and successfully proceed to the next stage, candidates must score at
+                least <strong>40%</strong> in each individual paper and maintain an overall aggregate of <strong>50%
+                    (200/400 marks)</strong> across all four papers.</p>
+        </div>
+        </div>
+
+        <h3>Examination Performance</h3>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>Paper</th>
+                    <th>Subject Name</th>
+                    <th>Marks Obtained</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Paper 1</td>
+                    <td>Principles of Accounting</td>
+                    <td>62/100</td>
+                    <td class="status-pass">PASS</td>
+                </tr>
+                <tr>
+                    <td>Paper 2</td>
+                    <td>Business Law</td>
+                    <td>78/100</td>
+                    <td class="status-pass">PASS</td>
+                </tr>
+                <tr>
+                    <td>Paper 3</td>
+                    <td>Quantitative Aptitude</td>
+                    <td>35/100</td>
+                    <td class="status-pass">PASS</td>
+                </tr>
+                <tr>
+                    <td>Paper 4</td>
+                     <td>Business Economics</td>
+                    <td>73/100</td>
+                    <td class="status-pass">PASS</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="2" style="text-align: right;">GRAND TOTAL:</td>
+                    <td>248/400</td>
+                    <td class="status-pass">FAIL</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</body>
+</html>
