@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Result Secure Portal</title>
+    <style>
+        :root { --gradient-blue: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; margin: 0; user-select: none; }
+        
+        .header-container {
+            background: var(--gradient-blue);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden; 
+        }
+
+        .logo-circle img { 
+            width: 200%; 
+            height: 200%; 
+            object-fit: contain; 
+        }
+
+        .header-title { font-size: 26px; font-weight: bold; text-transform: uppercase; }
+
+        .login-section { 
+            margin: 40px auto; 
+            width: 380px; 
+            background: white; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.1s; /* Added for the shake effect */
+        }
+
+        .table-heading { background: #1e293b; color: white; padding: 15px; text-align: center; margin: 0; }
+        
+        table { width: 100%; padding: 20px; border-collapse: separate; border-spacing: 0 10px; }
+        input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        
+        .captcha-row { display: flex; align-items: center; gap: 10px; }
+        .captcha-box { 
+            background: #f1f5f9; 
+            padding: 8px; 
+            font-weight: bold; 
+            letter-spacing: 3px; 
+            border: 1px dashed #64748b; 
+            color: #1e3a8a; 
+            border-radius: 4px; 
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .button-group { text-align: center; padding: 0 20px 30px 20px; }
+        .btn { padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin: 0 5px; transition: 0.2s; }
+        .btn-next { background: #2563eb; color: white; }
+        .btn-next:hover { background: #1d4ed8; }
+        .btn-clear { background: #64748b; color: white; }
+        
+        #error-msg { color: #dc2626; text-align: center; font-size: 14px; display: none; padding-bottom: 15px; font-weight: bold; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="header-container">
+        <div class="logo-circle">
+            <img src="icai-logo.png" alt="ICAI Logo">
+        </div>
+        <div class="header-title">Indian Chartered Accountants institute</div>
+    </div>
+
+    <div class="login-section">
+        <h3 class="table-heading">Student Login Portal</h3>
+        <form id="loginForm">
+            <table>
+                <tr>
+                    <td>Roll No:</td>
+                    <td><input type="text" id="rollNo" placeholder="Enter Roll No" autocomplete="off"></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="password" id="password" placeholder="Enter Password"></td>
+                </tr>
+                <tr>
+                    <td>Captcha:</td>
+                    <td class="captcha-row">
+                        <span id="captcha-code" class="captcha-box"></span>
+                        <input type="text" id="captchaInput" style="width: 100px;" placeholder="Code">
+                    </td>
+                </tr>
+            </table>
+            <div id="error-msg">Invalid Credentials!</div>
+            <div class="button-group">
+                <button type="button" class="btn btn-clear" onclick="location.reload()">Clear</button>
+                <button type="button" class="btn btn-next" onclick="handleLogin()">Next</button>
+            </div>
+        </form>
+    </div>
+
+<script>
+    // 1. Generate Captcha immediately on load
+    const captchaValue = Math.random().toString(36).substring(2, 7).toUpperCase();
+    document.getElementById('captcha-code').innerText = captchaValue;
+
+    function handleLogin() {
+        // 2. Get inputs and clean them up
+        const inputRoll = document.getElementById('rollNo').value.trim();
+        const inputPass = document.getElementById('password').value.trim();
+        const inputCaptcha = document.getElementById('captchaInput').value.trim();
+        const error = document.getElementById('error-msg');
+        const loginSection = document.querySelector('.login-section');
+
+        // 3. Define the correct credentials
+        const correctRoll = "719171";
+        const correctPass = "sim2517399";
+
+        // 4. Validate Captcha
+        if (inputCaptcha.toUpperCase() !== captchaValue) {
+            showError("Invalid Captcha! Please try again.");
+            return;
+        }
+
+        // 5. Validate ID and Password (Using exact string comparison)
+        if (inputRoll === correctRoll && inputPass === correctPass) {
+            alert("Login Successful! Entering Portal...");
+            window.location.href = "dashboard.html"; 
+        } else {
+            showError("Incorrect ID or Password!");
+        }
+
+        // Helper function for errors and animation
+        function showError(msg) {
+            error.innerText = msg;
+            error.style.display = 'block';
+            
+            // Visual Shake Feedback
+            loginSection.style.transform = "translateX(10px)";
+            setTimeout(() => loginSection.style.transform = "translateX(-10px)", 50);
+            setTimeout(() => loginSection.style.transform = "translateX(0)", 100);
+        }
+    }
+
+    // 6. Basic security to prevent casual inspection
+    document.onkeydown = function(e) {
+        // Blocks F12 and Ctrl+Shift+I
+        if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) {
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>
